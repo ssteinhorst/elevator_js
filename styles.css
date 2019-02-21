@@ -1,0 +1,76 @@
+.container {
+    width:100%;
+    display: flex;
+}
+.inside_panel {
+    position: relative;
+    text-align: center;
+    background-color: grey;
+    height: 375px;
+    width: 70px;
+    padding: 10px;
+    left: 75px;
+}
+#elevators {
+    position: relative;
+    background-color: #14133d;
+    height: 402px;
+    width: 120px;
+    margin: 0;
+    padding: 0;
+}
+
+.elevator {
+    position: absolute;
+    margin: 17px 8px;
+    background-color: #c73b65;
+    width: 50px;
+    height: 368px;
+    top: 0px;
+    text-align: center;
+    font-size: 24pt;
+    font-family: Futura;
+    color: #9e9937
+}
+
+.car {
+    bottom: 0px;
+    background-color: #8c598c;
+    height: 23px;
+    width: 100%;
+    font-size: 12pt;
+    color: #c4c763;
+    overflow: hidden;
+}
+
+.active_car {
+    background-color: white;
+}
+.active_button {
+    color: red;
+}
+#elevator1 {
+    left: 0px;
+}
+
+#buttons {
+    position: relative;
+    left: 67px;
+    height: 366px;
+    width: 52px;
+    padding: 18px 0px;
+    background-color: #14133d;
+    margin: 0;
+}
+
+.button-floor {
+    height: 23px;
+}
+
+#button-floor-1 button.button.down {
+    visibility: hidden;
+}
+
+#button-floor-16 button.button.up {
+    visibility: hidden;
+}

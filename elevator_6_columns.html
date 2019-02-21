@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elevator simulation</title>
+    <meta charset="utf-8">
+
+    <style>
+        .container {
+            width:100%;
+            display: flex;
+        }
+        .inside_panel {
+            position: relative;
+            text-align: center;
+            background-color: grey;
+            height: 375px;
+            width: 70px;
+            padding: 10px;
+            left: 75px;
+        }
+        #elevators {
+            position: relative;
+            background-color: #14133d;
+            height: 402px;
+            width: 402px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .elevator {
+            position: absolute;
+            margin: 17px 8px;
+            background-color: #c73b65;
+            width: 50px;
+            height: 368px;
+            top: 0px;
+            text-align: center;
+            font-size: 24pt;
+            font-family: Futura;
+            color: #9e9937
+        }
+
+        .car {
+            position: absolute;
+            bottom: 0px;
+            background-color: #8c598c;
+            height: 23px;
+            width: 100%;
+            font-size: 12pt;
+            color: #c4c763;
+            overflow: hidden;
+        }
+
+        .car > div {
+            position: relative;
+            top: -343px;
+        }
+
+        .car > div > div {
+            position: relative;
+            height: 23px;
+        }
+
+        #elevator1 {
+            left: 0px;
+        }
+
+        #elevator2 {
+            left: 67px;
+        }
+
+        #elevator3 {
+            left: 134px;
+        }
+
+        #elevator4 {
+            left: 201px;
+        }
+
+        #elevator5 {
+            left: 268px;
+        }
+
+        #elevator6 {
+            left: 335px;
+        }
+
+        #buttons {
+            position: relative;
+            left: 402px;
+            height: 366px;
+            width: 52px;
+            padding: 18px 0px;
+            background-color: #14133d;
+            margin: 0;
+        }
+
+        .button-floor {
+            height: 23px;
+        }
+
+        .button {
+            border: none;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            background-color: #26253d;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #c73b65;
+        }
+
+        .button:active {
+            background-color: #9e9937;
+        }
+
+        .button.on {
+            background-color: #763051;
+        }
+
+        .button.on:hover {
+            background-color: #c73b65;
+        }
+
+        .button.on:active {
+            background-color: #9e9937;
+        }
+
+        .button > .up {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 5px solid transparent;
+
+            border-bottom: 7px solid #ffffff;
+        }
+
+        .button > .up:hover {
+            border-bottom: 7px solid #fae60a;
+        }
+
+        .button > .up:active {
+            border-bottom: 7px solid #c73b65;
+        }
+
+        .button.on > .up {
+            border-bottom: 7px solid #9e9937;
+        }
+
+        .button.on > .up:hover {
+            border-bottom: 7px solid #fae60a;
+        }
+
+        .button.on > .up:active {
+            border-bottom: 7px solid #c73b65;
+        }
+
+        .button > .down {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 5px solid transparent;
+
+            border-top: 7px solid white;
+        }
+
+        .button > .down:hover {
+            border-top: 7px solid #fae60a;
+        }
+
+        .button > .down:active {
+            border-top: 7px solid #c73b65;
+        }
+
+        .button.on > .down {
+            border-top: 7px solid #9e9937;
+        }
+
+        .button.on > .down:hover {
+            border-top: 7px solid #fae60a;
+        }
+
+        .button.on > .down:active {
+            border-top: 7px solid #c73b65;
+        }
+
+        #button-floor-1 button.button.down {
+            visibility: hidden;
+        }
+
+        #button-floor-16 button.button.up {
+            visibility: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id='elevators'>
+        <div id='elevator1' class='elevator'>1
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='elevator2' class='elevator'>2
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='elevator3' class='elevator'>3
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='elevator4' class='elevator'>4
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='elevator5' class='elevator'>5
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='elevator6' class='elevator'>6
+            <div class='car'>
+                <div>
+                    <div>16</div>
+                    <div>15</div>
+                    <div>14</div>
+                    <div>13</div>
+                    <div>12</div>
+                    <div>11</div>
+                    <div>10</div>
+                    <div>9</div>
+                    <div>8</div>
+                    <div>7</div>
+                    <div>6</div>
+                    <div>5</div>
+                    <div>4</div>
+                    <div>3</div>
+                    <div>2</div>
+                    <div>1</div>
+                </div>
+            </div>
+        </div>
+        <div id='buttons'>
+            <div id = 'button-floor-16' class='button-floor'>
+                <button class='button up' data-floor='16' onclick="addCallUp(16)"><div class='up'></div></button>
+                <button class='button down' data-floor='16' onclick="addCallDown(16)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-15' class='button-floor'>
+                <button class='button up' data-floor='15' onclick="addCallUp(15)"><div class='up'></div></button>
+                <button class='button down' data-floor='15' onclick="addCallDown(15)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-14' class='button-floor'>
+                <button class='button up' data-floor='14' onclick="addCallUp(14)"><div class='up'></div></button>
+                <button class='button down' data-floor='14' onclick="addCallDown(14)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-13' class='button-floor'>
+                <button class='button up' data-floor='13' onclick="addCallUp(13)"><div class='up'></div></button>
+                <button class='button down' data-floor='13' onclick="addCallDown(13)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-12' class='button-floor'>
+                <button class='button up' data-floor='12' onclick="addCallUp(12)"><div class='up'></div></button>
+                <button class='button down' data-floor='12' onclick="addCallDown(12)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-11' class='button-floor'>
+                <button class='button up' data-floor='11' onclick="addCallUp(11)"><div class='up'></div></button>
+                <button class='button down' data-floor='11' onclick="addCallDown(11)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-10' class='button-floor'>
+                <button class='button up' data-floor='10' onclick="addCallUp(10)"><div class='up'></div></button>
+                <button class='button down' data-floor='10' onclick="addCallDown(10)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-9' class='button-floor'>
+                <button class='button up' data-floor='9' onclick="addCallUp(9)"><div class='up'></div></button>
+                <button class='button down' data-floor='9' onclick="addCallDown(9)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-8' class='button-floor'>
+                <button class='button up' data-floor='8' onclick="addCallUp(8)"><div class='up'></div></button>
+                <button class='button down' data-floor='8' onclick="addCallDown(8)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-7' class='button-floor'>
+                <button class='button up' data-floor='7' onclick="addCallUp(7)"><div class='up'></div></button>
+                <button class='button down' data-floor='7' onclick="addCallDown(7)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-6' class='button-floor'>
+                <button class='button up' data-floor='6' onclick="addCallUp(6)"><div class='up'></div></button>
+                <button class='button down' data-floor='6' onclick="addCallDown(6)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-5' class='button-floor'>
+                <button class='button up' data-floor='5' onclick="addCallUp(5)"><div class='up'></div></button>
+                <button class='button down' data-floor='5' onclick="addCallDown(5)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-4' class='button-floor'>
+                <button class='button up' data-floor='4' onclick="addCallUp(4)"><div class='up'></div></button>
+                <button class='button down' data-floor='4' onclick="addCallDown(4)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-3' class='button-floor'>
+                <button class='button up' data-floor='3' onclick="addCallUp(3)"><div class='up'></div></button>
+                <button class='button down' data-floor='3' onclick="addCallDown(3)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-2' class='button-floor'>
+                <button class='button up' data-floor='2' onclick="addCallUp(2)"><div class='up'></div></button>
+                <button class='button down' data-floor='2' onclick="addCallDown(2)"><div class='down'></div></button>
+            </div>
+            <div id = 'button-floor-1' class='button-floor'>
+                <button class='button up' data-floor='1' onclick="addCallUp(1)"><div class='up'></div></button>
+                <button class='button down' data-floor='1' onclick="addCallDown(1)"><div class='down'></div></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="inside_panel">
+        <!--<div id = '' class='button-floor'>-->
+            <button class='button up' data-floor='' onclick="addCall()">16</button>
+        <!--</div>-->
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">15</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">14</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">13</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">12</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">11</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">10</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">9</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">8</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">7</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">6</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">5</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">4</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">3</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">2</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button up' data-floor='' onclick="addCall()">1</button>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    function addCallDown(floor) {
+
+    }
+    function addCallUp(floor) {
+
+    }
+</script>
+</body>
+</html>

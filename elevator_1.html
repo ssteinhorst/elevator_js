@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elevator simulation</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <div id='elevators'>
+        <div id='elevator1' class='elevator'>
+                <div>
+                    <div class="car">16</div>
+                    <div class="car">15</div>
+                    <div class="car">14</div>
+                    <div class="car">13</div>
+                    <div class="car">12</div>
+                    <div class="car">11</div>
+                    <div class="car">10</div>
+                    <div class="car">9</div>
+                    <div class="car">8</div>
+                    <div class="car">7</div>
+                    <div class="car">6</div>
+                    <div class="car">5</div>
+                    <div class="car">4</div>
+                    <div class="car">3</div>
+                    <div class="car">2</div>
+                    <div class="car">1</div>
+            </div>
+        </div>
+        <div id='buttons'>
+            <div id = 'button-floor-16' class='button-floor'>
+                <button class='button up' data-floor='16' ><div class='up'></div>u</button>
+                <button class='button down' data-floor='16' onclick="addCallDown(16)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-15' class='button-floor'>
+                <button class='button up' data-floor='15' onclick="addCallUp(15)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='15' onclick="addCallDown(15)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-14' class='button-floor'>
+                <button class='button up' data-floor='14' onclick="addCallUp(14)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='14' onclick="addCallDown(14)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-13' class='button-floor'>
+                <button class='button up' data-floor='13' onclick="addCallUp(13)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='13' onclick="addCallDown(13)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-12' class='button-floor'>
+                <button class='button up' data-floor='12' onclick="addCallUp(12)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='12' onclick="addCallDown(12)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-11' class='button-floor'>
+                <button class='button up' data-floor='11' onclick="addCallUp(11)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='11' onclick="addCallDown(11)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-10' class='button-floor'>
+                <button class='button up' data-floor='10' onclick="addCallUp(10)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='10' onclick="addCallDown(10)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-9' class='button-floor'>
+                <button class='button up' data-floor='9' onclick="addCallUp(9)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='9' onclick="addCallDown(9)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-8' class='button-floor'>
+                <button class='button up' data-floor='8' onclick="addCallUp(8)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='8' onclick="addCallDown(8)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-7' class='button-floor'>
+                <button class='button up' data-floor='7' onclick="addCallUp(7)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='7' onclick="addCallDown(7)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-6' class='button-floor'>
+                <button class='button up' data-floor='6' onclick="addCallUp(6)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='6' onclick="addCallDown(6)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-5' class='button-floor'>
+                <button class='button up' data-floor='5' onclick="addCallUp(5)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='5' onclick="addCallDown(5)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-4' class='button-floor'>
+                <button class='button up' data-floor='4' onclick="addCallUp(4)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='4' onclick="addCallDown(4)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-3' class='button-floor'>
+                <button class='button up' data-floor='3' onclick="addCallUp(3)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='3' onclick="addCallDown(3)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-2' class='button-floor'>
+                <button class='button up' data-floor='2' onclick="addCallUp(2)"><div class='up'></div>u</button>
+                <button class='button down' data-floor='2' onclick="addCallDown(2)"><div class='down'></div>d</button>
+            </div>
+            <div id = 'button-floor-1' class='button-floor'>
+                <button class='button up' data-floor='1' onclick="addCallUp(1)"><div class='up'></div>u</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="inside_panel">
+        <div class='button-floor'>
+            <button class='button' id="button-16" onclick="addCall(16)">16</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-15" onclick="addCall(15)">15</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-14" onclick="addCall(14)">14</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-13" onclick="addCall(13)">13</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-12" onclick="addCall(12)">12</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-11" onclick="addCall(11)">11</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-10" onclick="addCall(10)">10</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-9" onclick="addCall(9)">9</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-8" onclick="addCall(8)">8</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-7" onclick="addCall(7)">7</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-6" onclick="addCall(6)">6</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-5" onclick="addCall(5)">5</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-4" onclick="addCall(4)">4</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-3" onclick="addCall(3)">3</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-2" onclick="addCall(2)">2</button>
+        </div>
+        <div class='button-floor'>
+            <button class='button' id="button-1" onclick="addCall(1)">1</button>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    function addCallDown(floor) {
+
+    }
+    function addCallUp(floor) {
+
+    }
+    function addCall(floor) {
+
+    }
+</script>
+</body>
+</html>

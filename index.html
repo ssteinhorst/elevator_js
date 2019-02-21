@@ -2,43 +2,197 @@
 <html>
 <head>
     <title>Elevator simulation</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8">
+
+    <style>
+        body {background-color: powderblue;}
+        .indicator_on {background-color: yellow;}
+        .indicator_off {background-color: black;}
+        .elevator_door_open {background-color: yellow}
+        .elevator_door_closed {background-color: black}
+        .elevator_doors {
+            height: 50px;
+            width: 50px;
+            background-color: black;
+
+        }
+        .elevator_shaft {
+            width:500px;
+            position: fixed;
+        }
+        button {display: block}
+        table {position: fixed;}
+        /*tr { width: 20px; height: 20px; padding: 0px; color: black; background-color: black}*/
+        .container {
+            width:500px;
+            position: fixed;
+        }
+
+        .left-element {
+            background: green;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+        }
+
+        .right-element {
+            background: red;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+        }
+    </style>
 </head>
 
 <body>
-<div id="floors">
-    <ul class="horizontal floors" id="floors_list">
-        <li class="floor">
-            <div class="elevator_doors"></div>
-            <div class="control_panel"></div>
-        </li>
-        <li class="floor">
-            <div class="elevator_doors"></div>
-            <div class="control_panel"></div>
-        </li>
-        <li class="floor">
-            <div class="elevator_doors"></div>
-            <div class="control_panel"></div>
-        </li>
-        <li class="floor">
-            <div class="elevator_doors"></div>
-            <div class="control_panel"></div>
-        </li>
-        <li class="floor">
-            <div class="elevator_doors"></div>
-            <div class="control_panel"></div>
-        </li>
-    </ul>
-</div>
+<!--<div class="container">-->
+    <!--<div class="left-element">-->
+        <!--left-->
+    <!--</div>-->
+    <!--<div class="right-element">-->
+        <!--right-->
+    <!--</div>-->
+<!--</div>-->
 
-<div id="elevator">
-    <div id="up"></div>
-    <div id="down"></div>
-    <div id="current_floor"></div>
-    <div id="current_direction"></div>
-</div>
+    <div class="elevator_shaft">
+        <table width="50px" border="0">
+            <tr id="floor_4">
+                <td class="elevator_doors" id="floor_4_doors">door4</td>
+                <td>
+                    <button type="button" onclick="addElevatorCallDown(4)">↓</button>
+                </td>
+            </tr>
+            <tr id="floor_3">
+                <td class="elevator_doors" id="floor_3_doors"></td>
+                <td>
+                    <button type="button" onclick="addElevatorCallUp(3)">↑ </button>
+                    <button type="button" onclick="addElevatorCallDown(3)">↓</button>
+                </td>
+            </tr>
+            <tr id="floor_2">
+                <td class="elevator_doors" id="floor_2_doors"></td>
+                <td>
+                    <button type="button" onclick="addElevatorCallUp(2)">↑ </button>
+                    <button type="button" onclick="addElevatorCallDown(2)">↓</button>
+                </td>
+            </tr>
+            <tr id="floor_1">
+                <td class="elevator_doors" id="floor_1_doors"></td>
 
-<script src=""></script>
+                <td>
+                    <button type="button" onclick="addElevatorCallUp(1)">↑ </button>
+                </td>
+            </tr>
+        </table>
+
+
+        <div style="float:right;" id="elevator">
+            Inside Panel
+            <button type="button" id="floor_1_button" onclick="">1</button>
+            <button type="button" id="floor_2_button" onclick="">2</button>
+            <button type="button" id="floor_3_button" onclick="">3</button>
+            <button type="button" id="floor_4_button" onclick="">4</button>
+            <div id="current_floor"></div>
+            <div id="current_direction"></div>
+        </div>
+    </div>
+    <script>
+
+        function addElevatorCallUp(floor) {
+            elevator.floor_call_list[floor - 1] = floor;
+        }
+
+        function addElevatorCallDown(floor) {
+            elevator.floor_call_list[floor - 1] = floor;
+        }
+
+        function open_elevator_door(floor) {
+            document.getElementById("floor_"+floor+"_doors").classList.add("elevator_door_open")
+        }
+
+        function close_elevator_door(floor) {
+            document.getElementById("floor_"+floor+"_doors").classList.add("elevator_door_closed")
+        }
+
+        var elevator = {
+            current_floor: 0,
+            state: "idle",
+            direction : "stop",
+            doors_open : false,
+            move_up : function() { ++this.current_floor;},
+            move_down : function () { --this.current_floor; },
+            floor_call_list : [],
+            open_doors: function (floor) {
+                document.getElementById("floor_"+floor+"_doors").classList.add("elevator_door_open");
+            },
+            close_doors: function (floor) {
+                document.getElementById("floor_"+floor+"_doors").classList.add("elevator_door_closed");
+            }
+
+        };
+
+        var action = function () {
+            document.getElementById("current_floor").innerText = elevator.current_floor;
+            console.log("in action");
+            console.log("floor: "+elevator.current_floor);
+            elevator.floor_call_list[elevator.current_floor - 1] = null;
+
+            if(elevator.direction === 'stop') {
+                return null;
+            } else if(elevator.direction === 'up') {
+                console.log("moving up")
+                elevator.move_up();
+                // open doors
+                // close doors
+                if(elevator.floor_call_list.some(el => el > elevator.current_floor)) {
+                    // do nothing
+                    // this.direction = null;
+                    console.log("keep moving")
+                } else {
+                    // do we stop?
+                    console.log("at the top")
+
+                    if(elevator.floor_call_list.some(el => el < elevator.current_floor)) {
+                        console.log("go down")
+                        // yes
+                        elevator.direction = 'down';
+                    } else {
+                        console.log("stop")
+
+                        elevator.direction = 'stop';
+                    }
+                }
+            } else if(elevator.direction === 'down') {
+                elevator.move_down();
+                console.log("moving down");
+                if (elevator.floor_call_list.length = 0) {
+                    console.log("at the bottom");
+                    // at the bottom of the list
+                    if(elevator.floor_call_list.some(el => el > elevator.current_floor)) {
+                        console.log("now go up");
+                        elevator.direction = 'up';
+                    } else {
+                        elevator.direction = 'stop';
+                        console.log("stop");
+                    }
+                } else {
+                    if(elevator.floor_call_list.some(el => el < elevator.current_floor)) {
+                        // elevator.direction = '';
+                        // do nothing, still going down
+                        console.log("do nothing");
+                    } else {
+                        // no more floors to go to, stop
+                        elevator.direction = 'stop';
+                        console.log("stop");
+                    }
+                }
+            }
+        };
+
+        setInterval(function(){
+
+            action();
+            }, 3000);
+    </script>
 </body>
 </html>
