@@ -148,7 +148,18 @@
 </div>
 
 </div>
+<script src="3state_elevator.js"></script>
 <script>
+    elevator = new ElevatorShaft();
+
+    for(var i = 0; i < 30; ++i) {
+        console.log("-" +elevator.direction());
+        console.log("currentFloor -------"+elevator.currentFloor);
+        console.log("upcalls: "+elevator.upCalls);
+        console.log("downcalls: "+elevator.downCalls);
+        elevator.move();
+
+    }
     function addCallDown(floor) {
 
     }
