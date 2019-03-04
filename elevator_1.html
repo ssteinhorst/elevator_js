@@ -10,22 +10,22 @@
     <div id='elevators'>
         <div id='elevator1' class='elevator'>
                 <div>
-                    <div class="car">16</div>
-                    <div class="car">15</div>
-                    <div class="car">14</div>
-                    <div class="car">13</div>
-                    <div class="car">12</div>
-                    <div class="car">11</div>
-                    <div class="car">10</div>
-                    <div class="car">9</div>
-                    <div class="car">8</div>
-                    <div class="car">7</div>
-                    <div class="car">6</div>
-                    <div class="car">5</div>
-                    <div class="car">4</div>
-                    <div class="car">3</div>
-                    <div class="car">2</div>
-                    <div class="car">1</div>
+                    <div id="car_16" class="car">16</div>
+                    <div id="car_15" class="car">15</div>
+                    <div id="car_14" class="car">14</div>
+                    <div id="car_13" class="car">13</div>
+                    <div id="car_12" class="car">12</div>
+                    <div id="car_11" class="car">11</div>
+                    <div id="car_10" class="car">10</div>
+                    <div id="car_9" class="car">9</div>
+                    <div id="car_8" class="car">8</div>
+                    <div id="car_7" class="car">7</div>
+                    <div id="car_6" class="car">6</div>
+                    <div id="car_5" class="car">5</div>
+                    <div id="car_4" class="car">4</div>
+                    <div id="car_3" class="car">3</div>
+                    <div id="car_2" class="car">2</div>
+                    <div id="car_1" class="car">1</div>
             </div>
         </div>
         <div id='buttons'>
@@ -152,23 +152,28 @@
 <script>
     elevator = new ElevatorShaft();
 
-    for(var i = 0; i < 30; ++i) {
-        console.log("-" +elevator.direction());
-        console.log("currentFloor -------"+elevator.currentFloor);
-        console.log("upcalls: "+elevator.upCalls);
-        console.log("downcalls: "+elevator.downCalls);
-        elevator.move();
-
-    }
     function addCallDown(floor) {
-
+        elevator.downCalls.push(floor);
     }
     function addCallUp(floor) {
-
+        elevator.upCalls.push(floor);
     }
     function addCall(floor) {
 
     }
+
+    setInterval(function () {
+
+        console.log("currentFloor -------"+elevator.currentFloor);
+        console.log("-" +elevator.direction());
+        console.log("upcalls: "+elevator.upCalls);
+        console.log("downcalls: "+elevator.downCalls);
+
+        document.getElementById("car_"+elevator.currentFloor).classList.remove("active_car");
+        elevator.move();
+        document.getElementById("car_"+elevator.currentFloor).classList.add("active_car");
+
+    }, 500);
 </script>
 </body>
 </html>

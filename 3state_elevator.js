@@ -38,14 +38,13 @@ class MovingUp extends Elevator {
         super(shaft);
     }
     move() {
-        return ++this.elevator.currentFloor;
-
-        if(this.elevator.upCalls.findIndex(floor => floor > this.elevator.currentFloor) !== -1) {
+        if(this.elevator.upCalls.findIndex(floor => floor >= this.elevator.currentFloor) !== -1) {
             return ++this.elevator.currentFloor;
-        } else if(this.elevator.upCalls.findIndex(floor => floor < this.elevator.currentFloor) !== -1) {
+        } else if(this.elevator.upCalls.findIndex(floor => floor <= this.elevator.currentFloor) !== -1) {
             // we need to go down before we can go up again
             return --this.elevator.currentFloor;
         }
+        return this.elevator.currentFloor; // there was a call on the level that the elevator switched directions
     }
     pruneUpCalls() {
         let index = this.elevator.upCalls.indexOf(this.elevator.currentFloor);
@@ -59,14 +58,14 @@ class MovingUp extends Elevator {
         return this.elevator.downCalls;
     }
     shouldChangeState() {
-        return this.elevator.upCalls.findIndex(floor => floor > this.elevator.currentFloor) === -1;
+        // return true if there are no more stops in this direction
+        return this.elevator.upCalls.findIndex(floor => floor >= this.elevator.currentFloor) === -1;
     }
     getChangedState() {
-        if (this.elevator.downCalls.findIndex( floor => floor < this.elevator.currentFloor) !== -1) {
+        if (this.elevator.downCalls.length > 0) {
             return this.elevator.downIndex;
-        } else {
-            return this.elevator.idleIndex;
         }
+        return this.elevator.idleIndex;
     }
     direction() {
         return 'UP';
@@ -84,7 +83,7 @@ class MovingDown extends Elevator {
             // we need to go up before we can go down again
             return ++this.elevator.currentFloor;
         }
-
+        return this.elevator.currentFloor; // there was a call on the level that the elevator switched directions
     }
     pruneUpCalls() {
         return this.elevator.upCalls;
@@ -97,16 +96,16 @@ class MovingDown extends Elevator {
         return this.elevator.downCalls;
     }
     shouldChangeState() {
+        // return true if there are no more stops in this direction
         return this.elevator.downCalls.findIndex(floor => floor < this.elevator.currentFloor) === -1;
 
     }
     getChangedState() {
-        if (this.elevator.upCalls.findIndex(floor => floor > this.elevator.currentFloor) !== -1) {
+        if (this.elevator.upCalls.length > 0) {
             return this.elevator.upIndex;
         } else {
             return this.elevator.idleIndex;
         }
-        return null;
     }
     direction() {
         return 'DOWN';
@@ -122,9 +121,17 @@ class Idle extends Elevator {
         return this.elevator.currentFloor;
     }
     pruneUpCalls() {
+        let index = this.elevator.upCalls.indexOf(this.elevator.currentFloor);
+        if (index !== -1) {
+            this.elevator.upCalls.splice(index, 1);
+        }
         return this.elevator.upCalls;
     }
     pruneDownCalls() {
+        let index = this.elevator.downCalls.indexOf(this.elevator.currentFloor);
+        if(index !== -1) {
+            this.elevator.downCalls.splice(index, 1);
+        }
         return this.elevator.downCalls;
     }
     shouldChangeState() {
@@ -150,7 +157,7 @@ class Idle extends Elevator {
     }
 }
 
-// usage
+//test code below, beware
 elevator = new ElevatorShaft();
 
 for(var i = 0; i < 12; ++i) {
